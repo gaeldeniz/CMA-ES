@@ -10,7 +10,7 @@ environment:
       # CYGWIN: C:\cygwin
     - PYTHON_VERSION: 3.7
       MINICONDA: C:\Miniconda37
-    # - PYTHON_VERSION: 3.5  # works only with matplotlib<3.1
+    # - PYTHON_VERSION: 3.5  # works only with matplotlib<3.1, numpy now requires Python >=3.6
     #   MINICONDA: C:\Miniconda35
     - PYTHON_VERSION: 3.6
       MINICONDA: C:\Miniconda36
