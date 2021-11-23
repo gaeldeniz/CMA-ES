@@ -25,6 +25,8 @@ class distance:
                                     2.05292194e-03, 4.07447879e-03, 8.47118809e-03, 1.69441401e-02],
                                 [2.29251212e-04, 5.51588562e-04, 1.37914695e-03, 2.07967590e-03,
                                     4.10535896e-03, 8.14133137e-03, 1.69441401e-02, 3.40749906e-02]])
+            self.optimal_C = np.identity(8)
+            print(self.optimal_C)
         else:
             self.optimal_C = np.identity(8)    
 
