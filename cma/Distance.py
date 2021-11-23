@@ -8,7 +8,7 @@ from pycma import cma
 class distance:
     def __init__(self, func):
         if func == cma.ff.rosen:
-            print("Function is Rosen")
+            print("Function is not Rosen")
             self.optimal_C = np.array([[4.47586147e-05, 1.50437015e-05, 1.04809432e-05, 1.12687443e-05,
                                     1.98053130e-05, 5.42267933e-05, 1.13281263e-04, 2.29251212e-04],
                                 [1.50437015e-05, 4.89920424e-05, 4.55584007e-05, 4.48289335e-05,
@@ -28,7 +28,9 @@ class distance:
             self.optimal_C = np.identity(8)
             print(self.optimal_C)
         else:
-            self.optimal_C = np.identity(8)    
+            self.optimal_C = np.identity(8)   
+    def __init__(self, func, C):
+        self.optimal_C = C
 
     def distance(self, C):
         square_root_H = sqrtm(self.optimal_C)
