@@ -45,7 +45,12 @@ class distance:
         plt.plot(self.logger)
         plt.xlabel('iteration')
         plt.ylabel('Distance')
-        plt.title('Distance to Known Hessian')
+        if self.type == "known":
+            plt.title('Distance to Known Hessian at the optimal')
+        elif self.type == "optimal":
+            plt.title('Distance to Approximate Hessian at the optimal')
+        else:
+            plt.title('Distance to Identity matrix')
         plt.grid()
         plt.show()
     
