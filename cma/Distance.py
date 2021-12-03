@@ -6,7 +6,8 @@ from pycma import cma
 
 
 class distance:
-    def __init__(self, es, func, type):
+    def __init__(self, es, func, type, Hessian = None):
+        self.type = type
         if type == 'optimal':
             #es_optimal = cma.CMAEvolutionStrategy(**es.inputargs)
             #es_optimal.optimize(func)
@@ -14,10 +15,15 @@ class distance:
             self.optimal_C = es_optimal.C
         elif type == 'identity':
             self.optimal_C = np.identity(len(es.inputargs['x0']))
+        elif type == 'known':
+            self.hessian =  Hessian
         return 
     def distance(self, C):
-        inv_H = np.linalg.inv(self.optimal_C)
-        square_root_H = sqrtm(inv_H)
+        if self.type == 'known':
+            Hes = self.hessian
+        else:
+            Hes = np.linalg.inv(self.optimal_C)
+        square_root_H = sqrtm(Hes)
         M = square_root_H @ C @ square_root_H
 
         eigenvalues_M, eigenvectors_M = np.linalg.eig(M)
