@@ -3,11 +3,12 @@ from numpy import array, dot, isscalar, sum
 import math
 from scipy.linalg import sqrtm
 from pycma import cma
-
+import matplotlib.pyplot as plt
 
 class distance:
     def __init__(self, es, func, type, Hessian = None):
         self.type = type
+        self.logger = []
         if type == 'optimal':
             #es_optimal = cma.CMAEvolutionStrategy(**es.inputargs)
             #es_optimal.optimize(func)
@@ -28,11 +29,23 @@ class distance:
 
         eigenvalues_M, eigenvectors_M = np.linalg.eig(M)
 
+        if not np.all(eigenvalues_M):
+            raise ValueError("The hessian matrix provided generates eigen values which are not compatible with the distance metric. Please try a different type of distance metric")
+
         mean_log_eigenvalues_M = np.mean(np.log(eigenvalues_M))
 
         distance = 0
         for eigenvalue in eigenvalues_M:
             distance += (math.log(eigenvalue) - mean_log_eigenvalues_M)**2
-
-        return math.sqrt(distance)
+        distance = math.sqrt(distance)
+        self.logger.append(distance)
+        return distance
+    
+    def plot(self):
+        plt.plot(self.logger)
+        plt.xlabel('iteration')
+        plt.ylabel('Distance')
+        plt.title('Distance to Known Hessian')
+        plt.grid()
+        plt.show()
     
