@@ -33,11 +33,16 @@ class distance:
             raise ValueError("The hessian matrix provided generates eigen values which are not compatible with the distance metric. Please try a different type of distance metric")
 
         mean_log_eigenvalues_M = np.mean(np.log(eigenvalues_M))
-
-        distance = 0
-        for eigenvalue in eigenvalues_M:
-            distance += (math.log(eigenvalue) - mean_log_eigenvalues_M)**2
-        distance = math.sqrt(distance)
+        if self.type == 'identity':
+            distance = 0
+            for eigenvalue in eigenvalues_M:
+                distance += (math.log(eigenvalue))**2
+            distance = math.sqrt(distance)     
+        else:
+            distance = 0
+            for eigenvalue in eigenvalues_M:
+                distance += (math.log(eigenvalue) - mean_log_eigenvalues_M)**2
+            distance = math.sqrt(distance)
         self.logger.append(distance)
         return distance
     
